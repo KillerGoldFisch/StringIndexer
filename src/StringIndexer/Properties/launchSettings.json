@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "StringIndexer": {
+      "commandName": "Project",
+      "workingDirectory": "../../data/"
+    }
+  }
+}

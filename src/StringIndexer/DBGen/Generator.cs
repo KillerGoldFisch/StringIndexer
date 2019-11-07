@@ -33,6 +33,11 @@ namespace StringIndexer.DBGen {
 
             var pos = GetPositions(s);
 
+            var storedString = Encoding.UTF8.GetString(pos.String);
+
+            if (storedString != s)
+                Console.WriteLine($"Collision: {storedString} - {s}");
+
             pos.Positions.Add(
                 new StringPosition() {
                     File = filename,

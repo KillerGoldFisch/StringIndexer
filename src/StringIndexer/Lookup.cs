@@ -7,6 +7,8 @@ using System.Text;
 namespace StringIndexer {
     public class Lookup {
 
+        private static Dictionary<UInt32, String> _filenameCache = new Dictionary<uint, string>();
+
         public static int FindStringpositionsOffset(Stream db, UInt32 hash) {
             int offset = 4;
             db.Position = offset;
@@ -55,6 +57,9 @@ namespace StringIndexer {
         }
 
         public static String FindString(Stream db, UInt32 hash) {
+            if (_filenameCache.ContainsKey(hash))
+                return _filenameCache[hash];
+
             int offset = FindStringpositionsOffset(db, hash);
             if (offset == 0)
                 return null;
@@ -62,6 +67,8 @@ namespace StringIndexer {
             db.Position = offset;
 
             var str = db.ReadString(db.ReadUInt32());
+
+            _filenameCache[hash] = str;
 
             return str;
         }
